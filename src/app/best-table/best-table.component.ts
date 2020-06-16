@@ -1,5 +1,5 @@
-import {ChangeDetectorRef, Component, Input, ViewChild} from '@angular/core';
-import {SomeData} from '../services/data.service';
+import {Component, Input, ViewChild} from '@angular/core';
+import {DataService, SomeData} from '../services/data.service';
 import {MatTable} from "@angular/material/table";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogBoxComponent, DialogBoxEvent} from "../dialog-box/dialog-box.component";
@@ -56,7 +56,7 @@ export class BestTableComponent {
 
   @ViewChild(MatTable) table: MatTable<any>;
 
-  constructor(public dialog: MatDialog) {
+  constructor(private dialog: MatDialog, private dataService: DataService) {
   }
 
   openDialog(action: DialogBoxEvent, row) {
@@ -92,14 +92,15 @@ export class BestTableComponent {
   }
 
   updateRowData(data) {
-    this.dataSource = this.dataSource
-      .map(d => {
-        if (d.eventId == data.eventId) {
-          d = {...d, ...data,}
+    this.dataService.updateData(data).subscribe(updated => {
+      this.dataSource = this.dataSource.map(d => {
+        if (d.eventId == updated.eventId) {
+          d = {...d, ...updated,}
         }
         return d
       })
-    this.table.renderRows();
+      this.table.renderRows();
+    })
   }
 
 }

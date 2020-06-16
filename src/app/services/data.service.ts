@@ -44,16 +44,30 @@ export interface SomeData {
   providedIn: 'root'
 })
 export class DataService{
-  private fetchDataApi = 'data/cows'
+  private dataApi = 'data/item'
 
   constructor(private http: HttpClient) { }
 
-  //TODO use proper cow interface
-  fetchData(): Observable<any>{
-    return this.http.get<any>(this.fetchDataApi)
+  fetchData(): Observable<Array<SomeData>>{
+    return this.http.get<any>(this.dataApi)
       .pipe(
         map(resp => resp.result)
       )
+  }
+
+  updateData(data: SomeData) : Observable<SomeData>{
+    return this.http.put<any>(this.dataApi,data)
+      .pipe(
+        map(resp => resp.data)
+      )
+  }
+
+  deleteData(data: SomeData){
+    return this.http.delete(this.dataApi+'?'+data.eventId)
+  }
+
+  addData(data: SomeData){
+    return this.http.post(this.dataApi,data)
   }
 
 }
