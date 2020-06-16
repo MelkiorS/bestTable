@@ -8,14 +8,13 @@
   </div>
   <ng-template #deleteTemplate>
     <h2 mat-dialog-title>Sure to delete ?</h2>
-
     <mat-form-field  *ngFor="let field of fields" >
       <mat-label>{{field}}</mat-label>
-      <input matInput value="{{localData[field]}}">
+      <input matInput disabled value="{{localData[field]}}">
     </mat-form-field>
   </ng-template>
 </div>
 <div mat-dialog-actions>
-  <button mat-stroked-button color="primary" (click)="doAction()">Save</button>
+  <button mat-stroked-button color="primary" (click)="doAction()">OK</button>
   <button mat-stroked-button color="accent" (click)="closeDialog()">Cancel</button>
 </div>

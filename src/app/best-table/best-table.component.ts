@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, ViewChild} from '@angular/core';
 import {Cow} from '../services/cow.service';
 import {MatTable} from "@angular/material/table";
 import {MatDialog} from "@angular/material/dialog";
@@ -60,7 +60,6 @@ export class BestTableComponent {
 
   openDialog(action: DialogBoxEvent, row) {
     const dialogRef = this.dialog.open(DialogBoxComponent,{
-      // width: '250px',
       data:{data:row, action, columnDef: this.columns},
 
 
@@ -68,13 +67,22 @@ export class BestTableComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result.event === DialogBoxEvent.ADD){
-        // this.addRowData(result.data);
+        // this.addRowData(result.data)
       }else if(result.event === DialogBoxEvent.UPDATE){
-        // this.updateRowData(result.data);
+        // this.updateRowData(result.data)
       }else if(result.event === DialogBoxEvent.DELETE){
-        // this.deleteRowData(result.data);
+        this.deleteRowData(result.data.cowId)
       }
     });
+  }
+
+  deleteRowData(cowId){
+    this.dataSource = this.dataSource.filter(value=>{
+      return value.cowId != cowId
+    })
+
+    this.table.renderRows()
+
   }
 
 }
