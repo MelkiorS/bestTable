@@ -65,11 +65,11 @@ export class BestTableComponent {
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result.event === DialogBoxEvent.ADD) {
+      if ( result?.event === DialogBoxEvent.ADD) {
         this.addRowData(result.data)
-      } else if (result.event === DialogBoxEvent.UPDATE) {
+      } else if (result?.event === DialogBoxEvent.UPDATE) {
         this.updateRowData(result.data)
-      } else if (result.event === DialogBoxEvent.DELETE) {
+      } else if (result?.event === DialogBoxEvent.DELETE) {
         this.deleteRowData(result.data)
       }
     })
