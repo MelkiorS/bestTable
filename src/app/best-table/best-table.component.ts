@@ -89,9 +89,11 @@ export class BestTableComponent {
   }
 
   addRowData(data) {
-    //TODO get Ids from server
-    // this.dataSource.push({});
-    this.table.renderRows();
+    this.dataService.addData(data)
+      .subscribe(d=>{
+        this.dataSource.unshift(d);
+        this.table.renderRows();
+      })
   }
 
   updateRowData(data) {

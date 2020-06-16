@@ -66,8 +66,11 @@ export class DataService{
     return this.http.delete<void>(`${this.dataApi}/${data.eventId}`,)
   }
 
-  addData(data: SomeData){
-    return this.http.post(this.dataApi,data)
+  addData(data: SomeData): Observable<SomeData>{
+    return this.http.post<any>(this.dataApi,data)
+      .pipe(
+        map(resp => resp.data)
+      )
   }
 
 }
