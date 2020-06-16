@@ -18,6 +18,7 @@ export interface DialogData {
 })
 export class DialogBoxComponent{
 
+  title = ''
   action: DialogBoxEvent
   localData:any
   dialogEvent = DialogBoxEvent
@@ -29,6 +30,18 @@ export class DialogBoxComponent{
     this.localData = {...data.data}
     this.action = data.action
     this.fields = data.columnDef
+
+    switch (data.action) {
+      case DialogBoxEvent.ADD:
+        this.title = 'Add new Data'
+        break
+      case DialogBoxEvent.DELETE:
+        this.title = 'Delete Data'
+        break
+      case DialogBoxEvent.UPDATE:
+        this.title = 'Update Data'
+        break
+    }
   }
 
   doAction(){

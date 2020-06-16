@@ -1,13 +1,12 @@
 <div mat-dialog-content>
+  <h2 mat-dialog-title>{{title}}</h2>
   <div *ngIf="action != dialogEvent.DELETE; else deleteTemplate">
-    <h2 mat-dialog-title>Update</h2>
     <mat-form-field  *ngFor="let field of fields" >
       <mat-label>{{field}}</mat-label>
       <input matInput [(ngModel)]="localData[field]">
     </mat-form-field>
   </div>
   <ng-template #deleteTemplate>
-    <h2 mat-dialog-title>Sure to delete ?</h2>
     <mat-form-field  *ngFor="let field of fields" >
       <mat-label>{{field}}</mat-label>
       <input matInput disabled value="{{localData[field]}}">
