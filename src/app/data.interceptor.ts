@@ -7,7 +7,7 @@ export class DataInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (req.url === 'data/item') {
+    if (req.url.includes('data/item')) {
       if (req.method === 'GET') {
         const cloned = req.clone({url: this.fetchCowApi})
         return next.handle(cloned)
@@ -15,6 +15,9 @@ export class DataInterceptor implements HttpInterceptor {
 
       if (req.method === 'PUT') {
         return of(new HttpResponse({status: 200, body: {data: req.body}}))
+      }
+      if (req.method === 'DELETE') {
+        return of(new HttpResponse({status: 200}))
       }
     }
 

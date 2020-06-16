@@ -80,9 +80,12 @@ export class BestTableComponent {
   }
 
   deleteRowData(data) {
-    this.dataSource = this.dataSource
-      .filter(v => v.eventId != data.eventId)
-    this.table.renderRows()
+    this.dataService.deleteData(data)
+      .subscribe(()=>{
+        this.dataSource = this.dataSource
+          .filter(v => v.eventId != data.eventId)
+        this.table.renderRows()
+      })
   }
 
   addRowData(data) {
@@ -92,15 +95,16 @@ export class BestTableComponent {
   }
 
   updateRowData(data) {
-    this.dataService.updateData(data).subscribe(updated => {
-      this.dataSource = this.dataSource.map(d => {
-        if (d.eventId == updated.eventId) {
-          d = {...d, ...updated,}
-        }
-        return d
+    this.dataService.updateData(data)
+      .subscribe(updated => {
+        this.dataSource = this.dataSource.map(d => {
+          if (d.eventId == updated.eventId) {
+            d = {...d, ...updated,}
+          }
+          return d
+        })
+        this.table.renderRows();
       })
-      this.table.renderRows();
-    })
   }
 
 }

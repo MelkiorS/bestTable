@@ -63,7 +63,7 @@ export class DataService{
   }
 
   deleteData(data: SomeData){
-    return this.http.delete(this.dataApi+'?'+data.eventId)
+    return this.http.delete<void>(`${this.dataApi}/${data.eventId}`,)
   }
 
   addData(data: SomeData){
