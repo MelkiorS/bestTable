@@ -52,37 +52,54 @@ export class BestTableComponent {
     'isOutOfBreedingWindow',
     'interval']
 
-  displayedColumns : string[] = ['action', ...this.columns]
+  displayedColumns: string[] = ['action', ...this.columns]
 
   @ViewChild(MatTable) table: MatTable<any>;
 
-  constructor(public dialog: MatDialog) {}
-
-  openDialog(action: DialogBoxEvent, row) {
-    const dialogRef = this.dialog.open(DialogBoxComponent,{
-      data:{data:row, action, columnDef: this.columns},
-
-
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if(result.event === DialogBoxEvent.ADD){
-        // this.addRowData(result.data)
-      }else if(result.event === DialogBoxEvent.UPDATE){
-        // this.updateRowData(result.data)
-      }else if(result.event === DialogBoxEvent.DELETE){
-        this.deleteRowData(result.data.cowId)
-      }
-    });
+  constructor(public dialog: MatDialog) {
   }
 
-  deleteRowData(cowId){
-    this.dataSource = this.dataSource.filter(value=>{
-      return value.cowId != cowId
+  openDialog(action: DialogBoxEvent, row) {
+    const dialogRef = this.dialog.open(DialogBoxComponent, {
+      data: {data: row, action, columnDef: this.getEditableFields(this.columns)}
     })
 
-    this.table.renderRows()
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.event === DialogBoxEvent.ADD) {
+        this.addRowData(result.data)
+      } else if (result.event === DialogBoxEvent.UPDATE) {
+        this.updateRowData(result.data)
+      } else if (result.event === DialogBoxEvent.DELETE) {
+        this.deleteRowData(result.data)
+      }
+    })
+  }
 
+  getEditableFields(columns: string[]): string[] {
+    return columns.filter(c => !c.toLowerCase().includes('id'))
+  }
+
+  deleteRowData(data) {
+    this.dataSource = this.dataSource
+      .filter(v => v.eventId != data.eventId)
+    this.table.renderRows()
+  }
+
+  addRowData(data) {
+    //TODO get Ids from server
+    // this.dataSource.push({});
+    this.table.renderRows();
+  }
+
+  updateRowData(data) {
+    this.dataSource = this.dataSource
+      .map(d => {
+        if (d.eventId == data.eventId) {
+          d = {...d, ...data,}
+        }
+        return d
+      })
+    this.table.renderRows();
   }
 
 }

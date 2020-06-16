@@ -26,7 +26,6 @@ export class DialogBoxComponent{
   constructor(
     public dialogRef: MatDialogRef<DialogBoxComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: DialogData ) {
-    console.log(data)
     this.localData = {...data.data}
     this.action = data.action
     this.fields = data.columnDef
