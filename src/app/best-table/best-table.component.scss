@@ -1,13 +1,20 @@
+$table-padding : 0 8px 0 8px;
+
 .mat-header-cell {
-  padding: 0 5px 0 5px;
+  padding: $table-padding;
   font-size: 1rem;
+  text-align: center;
 }
 
 .mat-cell {
-  padding: 0 5px 0 5px;
+  padding: $table-padding;
   text-align: center;
 }
 
 .addRowBtn{
   margin: 8px;
+}
+
+.mat-button{
+  min-width: 72px;
 }

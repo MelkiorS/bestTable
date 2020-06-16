@@ -16,17 +16,17 @@ export interface DialogData {
   templateUrl: './dialog-box.component.html',
   styleUrls: ['./dialog-box.component.scss']
 })
-export class DialogBoxComponent{
+export class DialogBoxComponent {
 
   title = ''
   action: DialogBoxEvent
-  localData:any
+  localData: any
   dialogEvent = DialogBoxEvent
   fields: string[]
 
   constructor(
     public dialogRef: MatDialogRef<DialogBoxComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: DialogData ) {
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: DialogData) {
     this.localData = {...data.data}
     this.action = data.action
     this.fields = data.columnDef
@@ -44,12 +44,12 @@ export class DialogBoxComponent{
     }
   }
 
-  doAction(){
-    this.dialogRef.close({event:this.action,data:this.localData})
+  doAction() {
+    this.dialogRef.close({event: this.action, data: this.localData})
   }
 
-  closeDialog(){
-    this.dialogRef.close({event:DialogBoxEvent.CANCEL})
+  closeDialog() {
+    this.dialogRef.close({event: DialogBoxEvent.CANCEL})
   }
 
 }

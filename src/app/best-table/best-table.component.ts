@@ -65,7 +65,7 @@ export class BestTableComponent {
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      if ( result?.event === DialogBoxEvent.ADD) {
+      if (result?.event === DialogBoxEvent.ADD) {
         this.addRowData(result.data)
       } else if (result?.event === DialogBoxEvent.UPDATE) {
         this.updateRowData(result.data)
@@ -81,7 +81,7 @@ export class BestTableComponent {
 
   deleteRowData(data) {
     this.dataService.deleteData(data)
-      .subscribe(()=>{
+      .subscribe(() => {
         this.dataSource = this.dataSource
           .filter(v => v.eventId != data.eventId)
         this.table.renderRows()
@@ -90,7 +90,7 @@ export class BestTableComponent {
 
   addRowData(data) {
     this.dataService.addData(data)
-      .subscribe(d=>{
+      .subscribe(d => {
         this.dataSource.unshift(d);
         this.table.renderRows();
       })
