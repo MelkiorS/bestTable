@@ -32,7 +32,6 @@ export class DialogBoxComponent{
   }
 
   doAction(){
-    console.log(this.localData)
     this.dialogRef.close({event:this.action,data:this.localData})
   }
 

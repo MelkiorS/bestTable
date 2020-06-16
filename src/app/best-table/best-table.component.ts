@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Input, ViewChild} from '@angular/core';
-import {Cow} from '../services/cow.service';
+import {SomeData} from '../services/data.service';
 import {MatTable} from "@angular/material/table";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogBoxComponent, DialogBoxEvent} from "../dialog-box/dialog-box.component";
@@ -11,8 +11,8 @@ import {DialogBoxComponent, DialogBoxEvent} from "../dialog-box/dialog-box.compo
 })
 export class BestTableComponent {
 
-  @Input('cows')
-  dataSource: Cow[] = []
+  @Input()
+  dataSource: SomeData[] = []
 
   dialogEvent = DialogBoxEvent
 

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Cow, CowService} from "./services/cow.service";
+import {SomeData, DataService} from "./services/data.service";
 
 @Component({
   selector: 'app-root',
@@ -7,14 +7,14 @@ import {Cow, CowService} from "./services/cow.service";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent  implements OnInit{
-  constructor(private cowService: CowService) { }
+  constructor(private dataService: DataService) { }
   loading:boolean = false
-  cows: Cow[]
+  data: SomeData[]
 
   ngOnInit(): void {
     this.loading = true
-    this.cowService.fetchCowsDate().subscribe(cows => {
-      this.cows = cows
+    this.dataService.fetchData().subscribe(data => {
+      this.data = data
       this.loading = false
     })
   }

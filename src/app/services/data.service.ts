@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 
-export interface Cow {
+export interface SomeData {
  healthIndex: string
  endDate: string
  minValueDateTime: string
@@ -43,14 +43,14 @@ export interface Cow {
 @Injectable({
   providedIn: 'root'
 })
-export class CowService{
-  private fetchCowApi = 'data/cows'
+export class DataService{
+  private fetchDataApi = 'data/cows'
 
   constructor(private http: HttpClient) { }
 
   //TODO use proper cow interface
-  fetchCowsDate(): Observable<any>{
-    return this.http.get<any>(this.fetchCowApi)
+  fetchData(): Observable<any>{
+    return this.http.get<any>(this.fetchDataApi)
       .pipe(
         map(resp => resp.result)
       )
