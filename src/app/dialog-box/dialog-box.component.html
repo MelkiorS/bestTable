@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Row Action :: <strong>{{action}}</strong></h1>
+<div mat-dialog-content>
+  <mat-form-field *ngIf="action != dialogEvent.DELETE; else deleteTemplate">
+    <input *ngFor="let field of fields" placeholder="{{field}}" matInput [(ngModel)]="localData[field]">
+  </mat-form-field>
+  <ng-template #deleteTemplate>
+    Sure to delete <b>{{localData}}</b>?
+  </ng-template>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="doAction()">Save</button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+</div>
